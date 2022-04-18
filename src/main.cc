@@ -13,10 +13,16 @@ int main(int argc, char** argv) {
 }
 
 int protected_main(int argc, char** argv) {
+  if(argc != 1) {
+    std::cout << usage() << '\n';
+    return 1;
+  }
   return 0;
 }
 
 
 void usage() {
-
+  std::string aux_string = "";
+  aux_string += "Usage: ";
+  aux_string += "./build/main <input_file>";
 }
