@@ -1,9 +1,9 @@
 CC=clang
 MAINFILE=src/main.cc
-CFLAGS=-Wall -g -o 
-OBJECTS= ./include/*.o
+CFLAGS=-Wall -g
+INCLUDE=include/*.cc
 
-main: 
-	$(CC) $(CFLAGS) build/main.exe $(MAINFILE) $(OBJECTS)
+main: src/main.cc 
+	$(CC) $(CFLAGS) -o build/main.exe $(MAINFILE) $(INCLUDE)
 
 
