@@ -27,25 +27,3 @@ typedef int16_t int16;
 typedef int32_t int32;
 typedef int64_t int64;
 
-typedef struct internal_pair {
-    std::string result = "";
-    int cost = 0;
-}Pair;
-
-typedef struct internal_Pair_solutions {
-    int cost = 0;
-    double time = 0;
-}Pairsolve;
-
-typedef struct internal_edges{
-    std::string city1;
-    std::string city2;
-    int cost;
-    
-}Edge;
-
-typedef struct internal_triplepair {
-    Pairsolve brute_force;
-    Pairsolve greedy;
-    Pairsolve dynamic;
-}Triple;
