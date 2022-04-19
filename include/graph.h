@@ -23,6 +23,7 @@ class Graph {
   ~Graph();
   void AddNode(Node);
   void GraphVisualizer();
+  Node& get_node(int);
   private: 
   int number_of_nodes_;
   std::vector<Node> nodes_;

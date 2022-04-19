@@ -40,6 +40,18 @@ VRP::~VRP() {
 
 }
 
-void VRP::solve() {
+void VRP::Solve() {
 
+}
+
+int VRP::CandidateSelector(std::vector<int>& to_visit) {
+  int min_cost = 9999999;
+  int min_cost_index = -1;
+  for (int i = 0; i < to_visit.size(); ++i) {
+    if (graph_->GetNode(to_visit[i]).cost_per_pos[0] < min_cost) {
+      min_cost = graph_->GetNode(to_visit[i]).cost_per_pos[0];
+      min_cost_index = i;
+    }
+  }
+  return min_cost_index;
 }

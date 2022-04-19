@@ -4,7 +4,8 @@ class VRP {
   public:
   VRP(std::string input_file);
   ~VRP();
-  void solve();
+  void Solve();
+  int CandidateSelector(std::vector<int>&);
 
   private:
   Graph* graph_;
