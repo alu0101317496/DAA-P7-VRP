@@ -3,6 +3,13 @@
 int protected_main(int argc, char** argv);
 std::string usage();
 
+/**
+ * @brief Main function
+ *
+ * @param argc Number of arguments
+ * @param argv Arguments
+ * @return int (exit status)
+ */
 int main(int argc, char** argv) {
   try {
     return protected_main(argc, argv);
@@ -12,6 +19,13 @@ int main(int argc, char** argv) {
   }
 }
 
+/**
+ * @brief Main function
+ *
+ * @param argc Number of arguments
+ * @param argv Arguments
+ * @return 0 if success, 1 otherwise
+ */
 int protected_main(int argc, char** argv) {
   if(argc != 3) {
     std::cout << usage() << '\n';
@@ -25,7 +39,9 @@ int protected_main(int argc, char** argv) {
   return 0;
 }
 
-
+/**
+ * Prints the usage of the program.
+ */
 std::string usage() {
   std::string aux_string = "";
   aux_string += "Usage: ";

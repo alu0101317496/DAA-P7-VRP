@@ -36,6 +36,7 @@ void Greedy::Solve(Graph* graph, std::vector<Vehicle>& vehicles) {
   std::cout << "Final acumulated cost: " << final_cost << '\n';
 }
 
+// WARN: This function is not optimized
 /**
  * @brief FilterGroups filters the groups of the 3 nodes with the 
  * lowest cost
@@ -68,6 +69,7 @@ std::vector<int> Greedy::FilterGroups(Graph* graph, int position) {
   return candidate_nodes;
 }
 
+// WARN: This function is not optimized
 /**
  * @brief Selects the next node to visit from the candidates
  * @param candidates The candidates to choose from

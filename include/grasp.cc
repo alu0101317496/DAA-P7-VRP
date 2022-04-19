@@ -6,8 +6,7 @@ n_vehicles_(n_vehicles)
 GRASP::~GRASP() {}
 
 
-//TODO: GRASP SOLVEr
-
+// TODO: Finalize the implementation of GRASP
 /**
 * @brief Solve: this is the function called grasp in the paper
 * it solves the problem using the GRASP procedures
