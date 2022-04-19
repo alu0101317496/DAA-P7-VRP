@@ -24,13 +24,13 @@ typedef struct internal_vehicle {
   int acumulated_cost = 0;
   void VisualizePath() {
     std::string aux_printer;
-    aux_printer += "Vehicle: " + std::to_string(identifier) + "\n";
+    aux_printer += "Vehicle: " + std::to_string(identifier+1) + "\n";
     aux_printer += "Final cost: " + std::to_string(acumulated_cost) + "\n";
-    aux_printer += "Path: \n";
+    aux_printer += "Path: ";
     for (int i = 0; i < (int)path.size(); i++) {
       aux_printer += std::to_string(path[i]) + ((i == (int)(path.size()-1)? "" : "->" ));
     }
-    std::cout << aux_printer << '\n';
+    std::cout << aux_printer << "\n\n";
   }
 } Vehicle;
 
