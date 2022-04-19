@@ -13,12 +13,13 @@ int main(int argc, char** argv) {
 }
 
 int protected_main(int argc, char** argv) {
-  if(argc != 2) {
+  if(argc != 3) {
     std::cout << usage() << '\n';
     return 1;
   } else {
     std::string filename = argv[1];
-    VRP vrp(filename,1);
+    int n = std::stoi(argv[2]);
+    VRP vrp(filename,n);
     vrp.Solve();
   }
   return 0;
@@ -28,7 +29,8 @@ int protected_main(int argc, char** argv) {
 std::string usage() {
   std::string aux_string = "";
   aux_string += "Usage: ";
-  aux_string += "./build/main <input_file> -> It reads the input file and ";
-  aux_string += "creates the graph.\n";
+  aux_string += "./build/main <input_file> <option> -> It reads the input";
+  aux_string += "file and selects the option to create the graph.\n";
+  aux_string += "Options:\n\t0: grasp\n\t1: greedy\n";
   return aux_string;
 }

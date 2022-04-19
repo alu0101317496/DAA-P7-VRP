@@ -38,7 +38,7 @@ VRP::VRP(std::string input_file, int option) {
     solver_ = new Greedy(num_customers_);
   } else {
     std::cout << "Using GRASP\n";
-    solver_ = new GRASP();
+    solver_ = new GRASP(num_customers_);
   }
 
   for (int i = 0; i < num_vehicles_; ++i) {
