@@ -17,3 +17,14 @@ void Graph::GraphVisualizer() {
 Node& Graph::get_node(int index) {
   return nodes_[index];
 }
+
+
+//PERF: The nodes visited
+bool Graph::AllNodesVisited() {
+  for (auto& node : nodes_) {
+    if (!node.visited) {
+      return false;
+    }
+  }
+  return true;
+}

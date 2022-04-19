@@ -18,7 +18,7 @@ int protected_main(int argc, char** argv) {
     return 1;
   } else {
     std::string filename = argv[1];
-    VRP vrp(filename);
+    VRP vrp(filename,1);
     vrp.Solve();
   }
   return 0;

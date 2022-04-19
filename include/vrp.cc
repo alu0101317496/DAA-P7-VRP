@@ -1,6 +1,6 @@
 #include "vrp.h"
 
-VRP::VRP(std::string input_file) {
+VRP::VRP(std::string input_file, int option) {
   std::ifstream input(input_file);
   std::string line;
   getline(input, line);
@@ -33,7 +33,20 @@ VRP::VRP(std::string input_file) {
     ++identifier;
   }
 
-  graph_->GraphVisualizer();
+  if (option == 1) {
+    std::cout << "Using greedy\n";
+    solver_ = new Greedy(num_customers_);
+  } else {
+    std::cout << "Using GRASP\n";
+    solver_ = new GRASP();
+  }
+
+  for (int i = 0; i < num_vehicles_; ++i) {
+    Vehicle new_vehicle;
+    new_vehicle.identifier = i;
+    vehicles_.emplace_back(new_vehicle);
+  }
+
 }
 
 VRP::~VRP() {
@@ -41,17 +54,6 @@ VRP::~VRP() {
 }
 
 void VRP::Solve() {
-
+  solver_->Solve(graph_, vehicles_);
 }
 
-int VRP::CandidateSelector(std::vector<int>& to_visit) {
-  int min_cost = 9999999;
-  int min_cost_index = -1;
-  for (int i = 0; i < to_visit.size(); ++i) {
-    if (graph_->GetNode(to_visit[i]).cost_per_pos[0] < min_cost) {
-      min_cost = graph_->GetNode(to_visit[i]).cost_per_pos[0];
-      min_cost_index = i;
-    }
-  }
-  return min_cost_index;
-}
