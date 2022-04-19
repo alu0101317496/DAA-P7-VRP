@@ -11,7 +11,6 @@ GRASP::~GRASP() {}
 /**
 * @brief Solve: this is the function called grasp in the paper
 * it solves the problem using the GRASP procedures
-*
 */
 void GRASP::Solve(Graph* graph, std::vector<Vehicle>& vehicles) {
   int criterio = 100;
@@ -46,6 +45,12 @@ void GRASP::ConstructGreedyRandomizedSolution(Graph* graph,
   }
 }
 
+/**
+ * @brief MakeRCL: this function makes the RCL
+ * @param RCL: the RCL 
+ * @param graph: the graph 
+ * @param actual_position: the actual position of the vehicle
+ */
 void GRASP::MakeRCL(std::vector<int>& RCL, 
                          Graph* graph,
                          int actual_position) {
@@ -54,7 +59,7 @@ void GRASP::MakeRCL(std::vector<int>& RCL,
   int min_index = 0;
   for (int j = 0; j < 3; ++j) {
     for (int i = 0; 
-        i < graph->get_node(actual_position).cost_per_pos.size(); 
+        i < (int)graph->get_node(actual_position).cost_per_pos.size(); 
         ++i) {
       if (graph->get_node(actual_position).cost_per_pos[i] < min &&
           !graph->get_node(actual_position).visited &&
