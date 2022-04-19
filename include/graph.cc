@@ -19,7 +19,6 @@ Node& Graph::get_node(int index) {
 }
 
 
-//PERF: The nodes visited
 bool Graph::AllNodesVisited() {
   for (auto& node : nodes_) {
     if (!node.visited) {

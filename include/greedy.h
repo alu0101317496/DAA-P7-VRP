@@ -5,10 +5,8 @@ class Greedy : public Solver{
     Greedy(int);
     ~Greedy();
     void Solve(Graph* graph, std::vector<Vehicle>&);
-    int CandidateSelector(Graph*, int); 
-    int SelectFromCandidates(std::vector<int>&);
+    std::vector<int> FilterGroups(Graph*, int);
+    int SelectFromCandidates(std::vector<int>&, Graph*, int);
   private:
     int n_customers_;
-
-
 };
