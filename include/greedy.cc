@@ -26,10 +26,14 @@ void Greedy::Solve(Graph* graph, std::vector<Vehicle>& vehicles) {
     vehicles[i].acumulated_cost += graph->get_node(vehicles[i].actual_position).cost_per_pos[0];
   }
 
+
+  int final_cost = 0;
   for(int i = 0; i < (int)vehicles.size(); ++i) {
     vehicles[i].VisualizePath();
+    final_cost += vehicles[i].acumulated_cost;
   }
 
+  std::cout << "Final acumulated cost: " << final_cost << '\n';
 }
 
 /**
