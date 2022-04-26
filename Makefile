@@ -3,8 +3,11 @@ MAINFILE=src/main.cc
 CFLAGS=-g
 INCLUDE=include/*.cc
 
+all:
+	$(CC) $(CFLAGS) -c $(MAINFILE) $(INCLUDE) 
+
 main: src/main.cc 
-	$(CC) $(CFLAGS) -o build/main.exe $(MAINFILE) $(INCLUDE)
+	$(CC) -g -o build\main.exe *.o
 
 greed2: main
 	.\build\main.exe .\examples\I40j_2m_S1_1.txt 1

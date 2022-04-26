@@ -27,3 +27,22 @@ bool Graph::AllNodesVisited() {
   }
   return true;
 }
+
+void Graph::VisitedVisualizer() {
+  std::string aux = "";
+  for (auto& node : nodes_) {
+    aux += "Node: " + std::to_string(node.identifier) + " -> ";
+    if (node.visited) {
+      aux += "TRUE\n";
+    } else {
+      aux += "false\n";
+    }
+  }
+  std::cout << aux;
+}
+
+void Graph::ResetVisited() {
+  for (auto& node : nodes_) {
+    node.visited = false;
+  }
+}

@@ -44,7 +44,7 @@ int protected_main(int argc, char** argv) {
  */
 std::string usage() {
   std::string aux_string = "";
-  aux_string += "Usage: ";
+  aux_string += "Usage:\n";
   aux_string += "./build/main <input_file> <option> -> It reads the input";
   aux_string += "file and selects the option to create the graph.\n";
   aux_string += "Options:\n\t0: grasp\n\t1: greedy\n";

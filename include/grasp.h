@@ -5,10 +5,12 @@ public:
   GRASP(int n_vehicles);
   ~GRASP();
   void Solve(Graph*, std::vector<Vehicle>&);
-  void MakeRCL(std::vector<int>&,Graph*, int);
-  int SelectRandomElementFromRCL(std::vector<int>&);
-  void ConstructGreedyRandomizedSolution(Graph*, std::vector<Vehicle>&, std::vector<int>& solution);
+  void MakeRCL(int*,Graph*, int);
+  int SelectRandomElementFromRCL(int*);
+  void ConstructGreedyRandomizedSolution(Graph*, std::vector<Vehicle>&, Solution&);
+  bool UpdateSolution(Solution&, Solution&);
 
 private:
-  int n_vehicles_;
+  int n_customers_;
+  std::string information(int&, int&, int);
 };

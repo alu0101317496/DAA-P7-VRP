@@ -8,25 +8,27 @@ Greedy::~Greedy() {}
  */
 void Greedy::Solve(Graph* graph, std::vector<Vehicle>& vehicles) {
   graph->get_node(0).visited = true;
+  
   for(int i = 0; i < (int)vehicles.size(); ++i) {
     vehicles[i].path.emplace_back(0);
   }
   while (!graph->AllNodesVisited()) {
     for (int i = 0; i < (int)vehicles.size(); ++i) {
-      std::vector<int> CRL = FilterGroups(graph, vehicles[i].actual_position);
+      int* CRL = FilterGroups(graph, vehicles[i].actual_position);
       int next_node = SelectFromCandidates(CRL, graph, vehicles[i].actual_position);
       vehicles[i].path.emplace_back(next_node);
       graph->get_node(next_node).visited = true;
       vehicles[i].acumulated_cost += graph->get_node(vehicles[i].actual_position).cost_per_pos[next_node];
+      vehicles[i].actual_position = next_node;
     }
   }
-
+  
   for(int i = 0; i < (int)vehicles.size(); ++i) {
     vehicles[i].path.emplace_back(0);
     vehicles[i].acumulated_cost += graph->get_node(vehicles[i].actual_position).cost_per_pos[0];
   }
 
-
+  
   int final_cost = 0;
   for(int i = 0; i < (int)vehicles.size(); ++i) {
     vehicles[i].VisualizePath();
@@ -36,7 +38,6 @@ void Greedy::Solve(Graph* graph, std::vector<Vehicle>& vehicles) {
   std::cout << "Final acumulated cost: " << final_cost << '\n';
 }
 
-// WARN: This function is not optimized
 /**
  * @brief FilterGroups filters the groups of the 3 nodes with the 
  * lowest cost
@@ -44,32 +45,33 @@ void Greedy::Solve(Graph* graph, std::vector<Vehicle>& vehicles) {
  * @param actual_position gives the actual position of the vehicle.
  * @return
  */
-std::vector<int> Greedy::FilterGroups(Graph* graph, int position) {
+int* Greedy::FilterGroups(Graph* graph, int position) {
   int min_cost = 99999999;
   int min_cost_node = -1;
   int candidate_min_cost_node = -1;
-  std::vector<int> candidate_nodes;
+  int* candidate_nodes = new int[3];
   for (int i = 0; i < 3; ++i) {
-    for (int i = 0; 
-        i < (int)graph->get_node(position).cost_per_pos.size(); 
-        ++i) {
-      if (graph->get_node(position).cost_per_pos[i] < min_cost &&
-        !graph->get_node(i).visited) {
-        candidate_min_cost_node = i;
-        if(std::find(candidate_nodes.begin(), candidate_nodes.end(), candidate_min_cost_node) == candidate_nodes.end()) {
-          min_cost = graph->get_node(position).cost_per_pos[i];
-          min_cost_node = i;
+    for (int j = 0; 
+        j < (int)graph->get_node(position).cost_per_pos.size(); 
+        ++j) {
+      if (graph->get_node(position).cost_per_pos[j] < min_cost &&
+        !graph->get_node(j).visited) {
+        candidate_min_cost_node = j;
+        if(j != position && [candidate_nodes, &j](){for(int a=0; a < 3; ++a) if(candidate_nodes[a] == j) return false; return true;}()) {
+          min_cost = graph->get_node(position).cost_per_pos[j];
+          min_cost_node = j;
         } else {
             candidate_min_cost_node = 99999;
         }
       }
     }
-    candidate_nodes.emplace_back(min_cost_node);
+    candidate_nodes[i] = min_cost_node;
+    min_cost = 99999999;
+    candidate_min_cost_node= -1;
   }
   return candidate_nodes;
 }
 
-// WARN: This function is not optimized
 /**
  * @brief Selects the next node to visit from the candidates
  * @param candidates The candidates to choose from
@@ -77,10 +79,10 @@ std::vector<int> Greedy::FilterGroups(Graph* graph, int position) {
  * @param position The actual position of the vehicle
  * @return The next node to visit
  */
-int Greedy::SelectFromCandidates(std::vector<int>& CRL, Graph* graph, int a_pos) {
+int Greedy::SelectFromCandidates(int* CRL, Graph* graph, int a_pos) {
   int min_cost = 99999999;
   int min_cost_node = -1;
-  for (int i = 0; i < (int)CRL.size(); ++i) {
+  for (int i = 0; i < 3; ++i) {
     if (graph->get_node(a_pos).cost_per_pos[CRL[i]] < min_cost) {
       min_cost = graph->get_node(a_pos).cost_per_pos[CRL[i]];
       min_cost_node = CRL[i];
