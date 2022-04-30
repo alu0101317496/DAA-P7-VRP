@@ -1,5 +1,5 @@
-#include "structures.h"
-
+#include "solver.h"
+#pragma once 
 class Solution {
 public:
   Solution();

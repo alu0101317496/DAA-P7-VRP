@@ -5,6 +5,7 @@ INCLUDE=include/*.cc
 
 all:
 	$(CC) $(CFLAGS) -c $(MAINFILE) $(INCLUDE) 
+	$(CC) $(CFLAGS) -o build\main.exe *.o
 
 main: src/main.cc 
 	$(CC) -g -o build\main.exe *.o
