@@ -1,6 +1,11 @@
 #include "greedy.h"
 #include "grasp.h"
 
+struct SolutionPair {
+  Solution solution;
+  double time;
+};
+
 class VRP {
   public:
   VRP(std::string input_file, int option);
@@ -14,4 +19,5 @@ class VRP {
   int num_vehicles_;
   int num_customers_;
   std::vector<Vehicle> vehicles_;
+  void VisualizeSolutions(std::vector<SolutionPair>);
 };

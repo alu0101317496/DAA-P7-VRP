@@ -14,6 +14,7 @@
 #include <thread>
 #include <iomanip>
 
+#define ABSINT(a) ((a < 0)? -a : a)
 #define global_variable static
 #define Clocker(a, b) ((double)(b-a)/CLOCKS_PER_SEC)
 
@@ -27,3 +28,4 @@ typedef int16_t int16;
 typedef int32_t int32;
 typedef int64_t int64;
 
+static int number_of_vehicles = 0;

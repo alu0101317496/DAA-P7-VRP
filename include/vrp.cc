@@ -35,10 +35,10 @@ VRP::VRP(std::string input_file, int option) {
 
   if (option == 1) {
     std::cout << "Using greedy\n";
-    solver_ = new Greedy(num_customers_);
+    solver_ = new Greedy(num_customers_, graph_, num_vehicles_);
   } else {
     std::cout << "Using GRASP\n";
-    solver_ = new GRASP(num_customers_);
+    solver_ = new GRASP(num_customers_, graph_, num_vehicles_);
   }
 
   for (int i = 0; i < num_vehicles_; ++i) {
@@ -46,7 +46,6 @@ VRP::VRP(std::string input_file, int option) {
     new_vehicle.identifier = i;
     vehicles_.emplace_back(new_vehicle);
   }
-
 }
 
 VRP::~VRP() {
@@ -54,6 +53,30 @@ VRP::~VRP() {
 }
 
 void VRP::Solve() {
-  solver_->Solve(graph_, vehicles_);
+  std::vector<SolutionPair> solutions;
+  Solution new_solution;
+  for(int i = 0; i < 5; ++i) {
+    clock_t begin = clock();
+    new_solution = solver_->Solve(graph_, vehicles_);
+    clock_t end = clock();
+    double time = Clocker(begin, end);
+    std::cout << "Found solution: " << new_solution.get_total_cost() << '\n' << "Time spent: " << time << '\n';
+    solutions.push_back({new_solution, time});
+  }
+  VisualizeSolutions(solutions);
+
+  std::cout << "Applying shake....\n";
+}
+
+void VRP::VisualizeSolutions(std::vector<SolutionPair> solutions) {
+  system("cls");
+  std::cout << std::setfill('-') << std::setw(5*20) << "|\n";
+  std::cout << std::setfill(' ') << std::fixed;
+  std::cout << std::setw(20) << "N vehículos" << std::setw(20) << "n" << std::setw(20) << "Ejecución" << std::setw(20) << "Distancia total" << std::setw(20) << "CPU TIME\n";
+  std::cout << std::setfill('-') << std::setw(5*20) << "|\n";
+  std::cout << std::setfill(' ') << std::fixed;
+  for (int i = 0; i < solutions.size(); ++i) {
+    std::cout << std::setw(19) << num_vehicles_ << std::setw(20) << num_customers_ << std::setw(20) << i << std::setw(20) << solutions[i].solution.get_total_cost() << std::setw(20) << solutions[i].time << '\n';
+  }
 }
 

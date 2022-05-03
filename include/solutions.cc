@@ -34,9 +34,9 @@ void Solution::set_total_cost(int total_cost) {
   total_cost_ = total_cost;
 }
 
-Solution& Solution::operator=(Solution& other_solution) {
-    paths_ = other_solution.get_path();
-    total_cost_ = other_solution.get_total_cost();
+Solution& Solution::operator=(Solution other_solution) {
+  paths_ = other_solution.get_path();
+  total_cost_ = other_solution.get_total_cost();
   
   return *this;
 }

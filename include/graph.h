@@ -11,10 +11,10 @@ class Graph {
   bool AllNodesVisited();
   void VisitedVisualizer();
   void ResetVisited();
+  inline int get_number_of_nodes() {return nodes_.size();}
   private: 
   int number_of_nodes_;
   std::vector<Node> nodes_;
-  
 };
 
 typedef struct internal_vehicle {
@@ -28,6 +28,15 @@ typedef struct internal_vehicle {
     acumulated_cost = 0;
     path.clear();
   }
+  
+  void RecalculateCarCost(Graph* graph) {
+    int cost = 0;
+    for (int i = 0; i < (int)path.size() - 1; ++i) {
+      cost += graph->get_node(path[i]).cost_per_pos[path[i+1]];
+    }
+    acumulated_cost = cost;
+  }
+  
   std::string VisualizePath() {
     std::string aux_printer;
     aux_printer += "Vehicle: " + std::to_string(identifier+1);

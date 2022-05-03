@@ -1,12 +1,12 @@
 #include "greedy.h"
 
-Greedy::Greedy(int customers) {}
+Greedy::Greedy(int customers, Graph* graph, int v) : Solver(graph, v) {}
 Greedy::~Greedy() {}
 
 /**
  * @brief Solves the problem 
  */
-void Greedy::Solve(Graph* graph, std::vector<Vehicle>& vehicles) {
+Solution Greedy::Solve(Graph* graph, std::vector<Vehicle>& vehicles) {
   graph->get_node(0).visited = true;
   
   for(int i = 0; i < (int)vehicles.size(); ++i) {
@@ -36,6 +36,10 @@ void Greedy::Solve(Graph* graph, std::vector<Vehicle>& vehicles) {
   }
 
   std::cout << "Final acumulated cost: " << final_cost << '\n';
+  Solution new_sol;
+  new_sol.set_total_cost(final_cost);
+  new_sol.set_path(vehicles);
+  return new_sol;
 }
 
 /**

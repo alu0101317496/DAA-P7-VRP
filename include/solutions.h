@@ -1,4 +1,4 @@
-#include "solver.h"
+#include "./graph.h"
 #pragma once 
 class Solution {
 public:
@@ -10,7 +10,7 @@ public:
   std::string get_path();
   void set_total_cost(int);
   int get_total_cost();
-  Solution& operator=(Solution&);
+  Solution& operator=(Solution);
   bool operator <(Solution&);
   bool operator >(Solution&);
   bool operator ==(Solution&);

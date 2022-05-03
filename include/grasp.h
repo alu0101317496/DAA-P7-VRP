@@ -1,26 +1,29 @@
-#include "solutions.h"
+#include "local_search/searches/OPT2.h"
+#include "local_search/searches/Exchange_Inter.h"
+#include "local_search/searches/Exchange_Intra.h"
+#include "local_search/searches/ReInsertion_Intra.h"
+#include "local_search/searches/ReInsertion_Inter.h"
 
 class GRASP : public Solver {
-public:
-  GRASP(int n_vehicles);
+  public:
+  GRASP(int, Graph*, int);
   ~GRASP();
-  void Solve(Graph*, std::vector<Vehicle>&);
+  Solution Solve(Graph*, std::vector<Vehicle>&);
   void MakeRCL(int*,Graph*, int);
   int SelectRandomElementFromRCL(int*);
   void ConstructGreedyRandomizedSolution(Graph*, std::vector<Vehicle>&, Solution&);
-  void LocalSearch(Graph*, std::vector<Vehicle>&, Solution&);
+  void SearchLocally(Graph*, std::vector<Vehicle>&, Solution&);
   bool UpdateSolution(Solution&, Solution&);
   void MakeRCLInsertion(int*,Graph*, int);
-
-
-private:
+  
+  
+  private:
   int n_customers_;
-  std::string information(int&, int&, int);
-  int l_s_option_;
-  void opt2_optimization(Graph*, std::vector<Vehicle>&, Solution&);
-  void opt2_swap(Vehicle&, int, int);
-  void re_insertion(Graph*, std::vector<Vehicle>&, Solution&);
-  void update_costs(Graph*, std::vector<Vehicle>&);
-  void re_insertion_swap(Vehicle&, Graph*, int, int);
+  std::string information(int&, int);
+  LocalSearch* local_exchange_intra_;
+  LocalSearch* local_exchange_inter_;
+  LocalSearch* local_reinsertion_inter_;
+  LocalSearch* local_reinsertion_intra_;
+  LocalSearch* local_2_opt_;
   int SelectRandomElementFromRCLInsertion(int*);
 };
